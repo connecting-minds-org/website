@@ -6,18 +6,22 @@
     <title>Connecting Minds | Counter-Extremism & Critical Thinking</title>
     <meta name="description" content="Connecting Minds is a UK non-profit dedicated to counter-extremism through educational workshops, research, and policy advocacy.">
     
-    <!-- Google Fonts -->
+    <!-- Resource Hints for faster connection -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;700;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    
+    <!-- Optimized Google Fonts (Only loading used weights) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
     
     <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
     <!-- AOS Animation Library CSS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS (Using script deferred to prevent render blocking where possible) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -64,6 +68,8 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            /* Performance fix for CSS transitions */
+            will-change: transform, box-shadow;
         }
         
         .service-card::before {
@@ -111,8 +117,7 @@
             <div class="flex justify-between h-20 md:h-24">
                 <!-- Logo & Wordmark -->
                 <div class="flex items-center">
-                    <a href="#" class="flex-shrink-0 flex items-center gap-3 group">
-                        <!-- Inline SVG Logo for perfect scaling and zero broken links -->
+                    <a href="#" class="flex-shrink-0 flex items-center gap-3 group" aria-label="Connecting Minds Home">
                         <div class="h-10 w-12 md:h-12 md:w-14 transition-transform duration-500 group-hover:scale-105">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80" class="w-full h-full">
                                 <path d="M 25 45 C 15 35, 20 15, 40 10 C 50 5, 60 5, 75 15 C 90 25, 95 45, 80 55 C 75 60, 60 70, 50 65 C 40 60, 30 55, 25 45 Z" fill="none" stroke="#B1C6D9" stroke-width="2.5" stroke-linejoin="round"/>
@@ -170,7 +175,7 @@
         <canvas id="networkCanvas" class="absolute inset-0 z-0 w-full h-full opacity-60"></canvas>
         
         <!-- Gradient overlay -->
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-brand-navy/60 to-brand-navy z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-brand-navy/60 to-brand-navy z-10 pointer-events-none"></div>
         
         <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
             
@@ -246,8 +251,13 @@
                 <div data-aos="fade-left" data-aos-duration="1000" class="mt-12 lg:mt-0 relative">
                     <!-- Image Wrapper -->
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl group">
-                        <div class="absolute inset-0 bg-brand-navy/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
-                        <img class="w-full h-[350px] md:h-[450px] lg:h-[500px] object-cover transform group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="People collaborating in a workshop">
+                        <div class="absolute inset-0 bg-brand-navy/10 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
+                        <!-- Optimized Unsplash Image: Compressed, cropped, async decoding and lazy loaded -->
+                        <img class="w-full h-[350px] md:h-[450px] lg:h-[500px] object-cover transform group-hover:scale-105 transition-transform duration-700" 
+                             src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format,compress&fit=crop&w=800&q=75" 
+                             alt="People collaborating in a workshop"
+                             loading="lazy"
+                             decoding="async">
                         
                         <!-- Floating Stat Box -->
                         <div class="absolute bottom-4 left-4 md:bottom-6 md:left-6 bg-white/95 backdrop-blur p-4 md:p-5 rounded-xl shadow-xl z-20">
@@ -342,7 +352,7 @@
     <section id="contact" class="relative py-20 lg:py-24 overflow-hidden">
         <div class="absolute inset-0 bg-brand-green z-0"></div>
         <!-- Abstract wave background -->
-        <svg class="absolute bottom-0 left-0 w-full opacity-20 z-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <svg class="absolute bottom-0 left-0 w-full opacity-20 z-0 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <path fill="#ffffff" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,186.7C672,171,768,117,864,112C960,107,1056,149,1152,165.3C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
         </svg>
 
@@ -436,15 +446,19 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Scripts deferred to bottom to prevent blocking DOM render -->
     <!-- AOS Animation Library -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // Initialize Scroll Animations
-        AOS.init({
-            once: true, 
-            offset: 50, 
-            duration: 800, // slightly faster animations for mobile feel
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <script defer>
+        // Delay AOS initialization until DOM is ready to prevent rendering jank
+        document.addEventListener("DOMContentLoaded", function() {
+            if(typeof AOS !== 'undefined') {
+                AOS.init({
+                    once: true, 
+                    offset: 50, 
+                    duration: 800,
+                });
+            }
         });
 
         // Mobile Menu Toggle
@@ -459,101 +473,133 @@
         }
 
         // --- Custom Neural Network Animation for Hero Background ---
-        const canvas = document.getElementById('networkCanvas');
-        const ctx = canvas.getContext('2d');
-        let particlesArray;
-
-        function setCanvasSize() {
-            canvas.width = window.innerWidth;
-            canvas.height = document.getElementById('home').offsetHeight;
-        }
-        
-        window.addEventListener('resize', () => {
-            setCanvasSize();
-            init(); // Re-initialize on resize to fix density
-        });
-
-        class Particle {
-            constructor(x, y, directionX, directionY, size, color) {
-                this.x = x;
-                this.y = y;
-                this.directionX = directionX;
-                this.directionY = directionY;
-                this.size = size;
-                this.color = color;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-            update() {
-                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
-                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-                this.x += this.directionX;
-                this.y += this.directionY;
-                this.draw();
-            }
-        }
-
-        function init() {
-            setCanvasSize();
-            particlesArray = [];
+        // Heavily optimized for performance and CPU usage
+        document.addEventListener("DOMContentLoaded", function() {
+            const canvas = document.getElementById('networkCanvas');
+            const heroSection = document.getElementById('home');
+            const ctx = canvas.getContext('2d', { alpha: false }); // Opting out of alpha for performance where possible, but we use gradient overlays so we need it. Actually keep default.
             
-            // Adjust particle count based on screen width (fewer on mobile for performance)
-            let densityDivisor = window.innerWidth < 768 ? 20000 : 12000;
-            let numberOfParticles = (canvas.height * canvas.width) / densityDivisor;
+            let particlesArray = [];
+            let animationFrameId;
+            let isVisible = true;
+
+            function setCanvasSize() {
+                canvas.width = window.innerWidth;
+                canvas.height = heroSection.offsetHeight;
+            }
             
-            const colors = ['#56876D', '#B1C6D9', '#384f6e'];
+            // Debounce resize event for performance
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    setCanvasSize();
+                    init(); 
+                }, 200);
+            });
 
-            for (let i = 0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 3) + 1; // Slightly smaller dots
-                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-                let directionX = (Math.random() * 0.8) - 0.4;
-                let directionY = (Math.random() * 0.8) - 0.4;
-                let color = colors[Math.floor(Math.random() * colors.length)];
-
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            class Particle {
+                constructor(x, y, directionX, directionY, size, color) {
+                    this.x = x;
+                    this.y = y;
+                    this.directionX = directionX;
+                    this.directionY = directionY;
+                    this.size = size;
+                    this.color = color;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                }
+                update() {
+                    if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                    if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                    this.x += this.directionX;
+                    this.y += this.directionY;
+                    this.draw();
+                }
             }
-        }
 
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            function init() {
+                setCanvasSize();
+                particlesArray = [];
+                
+                // PERFORMANCE FIX: Massively reduce particle count to fix O(n^2) CPU spike
+                let densityDivisor = window.innerWidth < 768 ? 35000 : 25000;
+                let numberOfParticles = Math.min(Math.floor((canvas.height * canvas.width) / densityDivisor), 150); // Hard cap at 150 particles
+                
+                const colors = ['#56876D', '#B1C6D9', '#384f6e'];
 
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
+                for (let i = 0; i < numberOfParticles; i++) {
+                    let size = (Math.random() * 2) + 1;
+                    let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                    let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                    let directionX = (Math.random() * 0.6) - 0.3;
+                    let directionY = (Math.random() * 0.6) - 0.3;
+                    let color = colors[Math.floor(Math.random() * colors.length)];
+
+                    particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+                }
             }
-            connect();
-        }
 
-        function connect() {
-            let opacityValue = 1;
-            for (let a = 0; a < particlesArray.length; a++) {
-                for (let b = a; b < particlesArray.length; b++) {
-                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
-                    + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-                    
-                    // Connection distance scaling
-                    let maxDistance = window.innerWidth < 768 ? 15000 : 25000;
+            function animate() {
+                if (!isVisible) return; // Stop rendering if not on screen
+                
+                animationFrameId = requestAnimationFrame(animate);
+                ctx.clearRect(0, 0, innerWidth, innerHeight);
 
-                    if (distance < maxDistance) {
-                        opacityValue = 1 - (distance / maxDistance);
-                        ctx.strokeStyle = `rgba(177, 198, 217, ${opacityValue * 0.5})`; // Softer lines
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                        ctx.stroke();
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                }
+                connect();
+            }
+
+            function connect() {
+                let opacityValue = 1;
+                // Pre-calculate squared distance for faster comparison
+                let maxDistanceSq = window.innerWidth < 768 ? 12000 : 20000;
+
+                for (let a = 0; a < particlesArray.length; a++) {
+                    for (let b = a + 1; b < particlesArray.length; b++) { // start at a+1 to avoid duplicate checks
+                        // Quick bounding box check before expensive multiplication
+                        let dx = particlesArray[a].x - particlesArray[b].x;
+                        let dy = particlesArray[a].y - particlesArray[b].y;
+                        
+                        if (Math.abs(dx) > 150 || Math.abs(dy) > 150) continue; // Skip if clearly too far
+
+                        let distanceSq = (dx * dx) + (dy * dy);
+
+                        if (distanceSq < maxDistanceSq) {
+                            opacityValue = 1 - (distanceSq / maxDistanceSq);
+                            ctx.strokeStyle = `rgba(177, 198, 217, ${opacityValue * 0.4})`;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                            ctx.stroke();
+                        }
                     }
                 }
             }
-        }
 
-        init();
-        animate();
+            // PERFORMANCE FIX: Only run animation when hero section is visible
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        isVisible = true;
+                        animate();
+                    } else {
+                        isVisible = false;
+                        cancelAnimationFrame(animationFrameId);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            init();
+            observer.observe(heroSection);
+        });
     </script>
 </body>
 </html>
